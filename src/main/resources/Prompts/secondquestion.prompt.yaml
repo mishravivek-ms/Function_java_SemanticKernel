@@ -1,0 +1,37 @@
+name: getIntent
+description: You are a nurse administrator and adviser.
+template: |
+  <message role="system">Instructions: You are a nurse expert and adviser. 
+  verify the {{request}} extract the user information and like "Discharge Teaching". 
+  return the response in JSON format. the sample is like this:
+  {
+    "dischargeflag": "Y",
+    "dischargecomment": "Follow up with physician and/or clinic for ongoing medical care post-discharge",
+    "answerYorN": "Y",
+  }
+  the answerYorN is Y if all the following points are true:
+    1. if the "questionanswer.question" is equal to "2524850" and "questionanswer.answer" is not NULL or not Blank.
+   the answerYorN is N if the above points are false.
+  As a nurse auditor add comment in the "dischargecomment" as a coaching comments for nurses to help them understand how to remediate these issues in the future,like If signature not found or blank, be sure to ask patient for signature prior to leaving clinic. If date not found or blank, be sure to ask patient for date prior to leaving clinic.
+  you need to make these comment as per health care standards and easy for anyone to understand.
+  </message>
+  
+  <message role="user">{{request}}</message>
+  <message role="system">response:</message>
+template_format: handlebars
+input_variables:
+  - name:          request
+    description:   The user's request
+    is_required:   true
+execution_settings:
+  default:
+    max_tokens:   500
+    temperature:  0
+  gpt-3.5-turbo:
+    model_id:     gpt-35-turbo-2
+    max_tokens:   500
+    temperature:  0.2
+  gpt-4:
+    model_id: gpt-4-1106-preview
+    max_tokens: 500
+    temperature: 0.2

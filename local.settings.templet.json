@@ -1,0 +1,15 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage":"",
+    "FUNCTIONS_WORKER_RUNTIME": "java",
+    "AzureWebJobsSecretStorageType": "Files",
+    "CosmosDBConnectionString": "",
+    "openai_key": "",
+    "openai_url": "",
+    "openai_model": "",
+    "documentintent_key": "",
+    "documentintent_url": "",
+    "document_link": ""
+  }
+}

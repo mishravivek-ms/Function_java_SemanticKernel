@@ -1,0 +1,19 @@
+{{ConversationSummaryPlugin.SummarizeConversation $history}}
+User: Extract the document signature and document date {{$request}} from the scanned document. Ensure the extracted information is not NULL . This information will be validated by a Nurse Auditor. Provide an expert comment on the validity and reliability of the extracted data.
+  Expert Comment,The extracted document signature and date have been verified for accuracy and authenticity. The signature matches the authorized signatory, and the date corresponds to the documented event. This validation ensures compliance with healthcare documentation standards and supports the integrity of the audit process.
+  return the response in JSON format. the sample is like this:
+  {
+    "documentsignature": "John Doe",
+    "documentdate": "2021-01-01",
+    "answerYorN": "Y",
+    "expertcomment": "The extracted document signature and date have been verified for accuracy and authenticity. The signature matches the authorized signatory, and the date corresponds to the documented event. This validation ensures compliance with healthcare documentation standards and supports the integrity of the audit process."
+  }
+  the answerYorN is Y if all the following points are true:
+    1. The extracted document signature is not NULL or not BLANK.
+    2. The extracted document date is not NULL or not BLANK.
+  the answerYorN is N if all the above points are false.
+  As a nurse auditor add comment in the "ExpertComment" as a coaching comments for nurses to help them understand how to remediate these issues in the future,like If signature not found or blank, be sure to ask patient for signature prior to leaving clinic. If date not found or blank, be sure to ask patient for date prior to leaving clinic.
+  you need to make these comment as per health care standards and easy for anyone to understand.
+
+
+Assistant:
