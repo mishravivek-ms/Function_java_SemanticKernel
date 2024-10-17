@@ -1,4 +1,4 @@
-package com.optum.plugin.firstquestionplugin;
+package com.aiaudit.plugin.firstquestionplugin;
 
 import com.azure.ai.formrecognizer.documentanalysis.DocumentAnalysisClient;
 import com.azure.ai.formrecognizer.documentanalysis.DocumentAnalysisClientBuilder;
@@ -8,15 +8,8 @@ import com.azure.core.credential.AzureKeyCredential;
 import com.azure.core.util.BinaryData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.semantickernel.semanticfunctions.annotations.DefineKernelFunction;
-import com.azure.ai.formrecognizer.documentanalysis.models.DocumentLine;
-import com.azure.ai.formrecognizer.documentanalysis.models.DocumentPage;
-import com.optum.DTO.agreementDTO;
-import com.optum.util.InputStreamWrapper;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.util.concurrent.CompletableFuture;
+import com.aiaudit.DTO.agreementDTO;
+import com.aiaudit.util.inputStreamWrapper;
 
 // I need to create a sementic kernal plugin that read document and return the content of the document
 
@@ -35,7 +28,7 @@ public class documentReaderPlugin {
 
     @DefineKernelFunction(name = "ReadDocument", description = "Gets full document")
     public agreementDTO readDocumentAsync(String json) throws Exception {
-        InputStreamWrapper wrapper = objectMapper.readValue(json, InputStreamWrapper.class);
+        inputStreamWrapper wrapper = objectMapper.readValue(json, inputStreamWrapper.class);
         BinaryData binaryData = BinaryData.fromBytes(wrapper.getData());
         AnalyzeResult result = client.beginAnalyzeDocument("prebuilt-document", binaryData)
                 .getFinalResult();

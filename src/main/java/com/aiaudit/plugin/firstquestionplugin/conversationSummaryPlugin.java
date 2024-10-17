@@ -1,5 +1,5 @@
 // Copyright (c) Microsoft. All rights reserved.
-package com.optum.plugin.firstquestionplugin;
+package com.aiaudit.plugin.firstquestionplugin;
 
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.contextvariables.ContextVariableTypes;
@@ -9,7 +9,7 @@ import com.microsoft.semantickernel.semanticfunctions.KernelFunctionArguments;
 import com.microsoft.semantickernel.semanticfunctions.annotations.DefineKernelFunction;
 import com.microsoft.semantickernel.semanticfunctions.annotations.KernelFunctionParameter;
 import com.microsoft.semantickernel.text.TextChunker;
-import com.optum.util.PromptFunctionConstants;
+import com.aiaudit.util.promptFunctionConstants;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,7 +18,7 @@ import java.util.List;
 /// <summary>
 /// Semantic plugin that enables conversations summarization.
 /// </summary>
-public class ConversationSummaryPlugin {
+public class conversationSummaryPlugin {
 
     /// <summary>
     /// The max tokens to process in a single prompt function call.
@@ -32,7 +32,7 @@ public class ConversationSummaryPlugin {
     /// <summary>
     /// Initializes a new instance of the <see cref="ConversationSummaryPlugin"/> class.
     /// </summary>
-    public ConversationSummaryPlugin() {
+    public conversationSummaryPlugin() {
         PromptExecutionSettings settings = PromptExecutionSettings.builder()
             .withMaxTokens(MaxTokens)
             .withTemperature(0.1)
@@ -40,7 +40,7 @@ public class ConversationSummaryPlugin {
             .build();
 
         this.summarizeConversationFunction = KernelFunction
-            .<String>createFromPrompt(PromptFunctionConstants.SummarizeConversationDefinition)
+            .<String>createFromPrompt(promptFunctionConstants.SummarizeConversationDefinition)
             .withDefaultExecutionSettings(settings)
             .withName("summarizeConversation")
             .withDescription(
@@ -48,14 +48,14 @@ public class ConversationSummaryPlugin {
             .build();
 
         this.conversationActionItemsFunction = KernelFunction
-            .<String>createFromPrompt(PromptFunctionConstants.GetConversationActionItemsDefinition)
+            .<String>createFromPrompt(promptFunctionConstants.GetConversationActionItemsDefinition)
             .withDefaultExecutionSettings(settings)
             .withName("conversationActionItems")
             .withDescription("Given a section of a conversation transcript, identify action items.")
             .build();
 
         this.conversationTopicsFunction = KernelFunction
-            .<String>createFromPrompt(PromptFunctionConstants.GetConversationTopicsDefinition)
+            .<String>createFromPrompt(promptFunctionConstants.GetConversationTopicsDefinition)
             .withDefaultExecutionSettings(settings)
             .withName("conversationTopics")
             .withDescription(

@@ -1,8 +1,5 @@
-package com.optum.function;
+package com.aiaudit.function;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
@@ -10,7 +7,7 @@ import com.microsoft.azure.functions.*;
 /**
  * Azure Functions with HTTP Trigger.
  */
-public class HttpTriggerJavaStubAudit {
+public class httpTriggerJavaStubAudit {
     /**
      * This function listens at endpoint "/api/HttpTriggerJavaStubAudit". Two ways to invoke it using "curl" command in bash:
      * 1. curl -d "HTTP Body" {your host}/api/HttpTriggerJavaStubAudit

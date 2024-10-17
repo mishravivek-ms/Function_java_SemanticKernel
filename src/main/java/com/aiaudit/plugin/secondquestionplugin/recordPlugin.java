@@ -1,4 +1,4 @@
-package com.optum.plugin.secondquestionplugin;
+package com.aiaudit.plugin.secondquestionplugin;
 
 import com.microsoft.semantickernel.semanticfunctions.annotations.DefineKernelFunction;
 
@@ -9,15 +9,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 
-public class nurseRecordPlugin {
+public class recordPlugin {
 
     private String apiendpoint = null;
 
-    public nurseRecordPlugin(String endpoint) {
+    public recordPlugin(String endpoint) {
         apiendpoint = endpoint;
     }
 
-    @DefineKernelFunction(name = "ReadNurseRecord", description = "Gets full document")
+    @DefineKernelFunction(name = "ReadAuditRecord", description = "Gets full document")
     public String readDocumentAsync(String apiURL) throws Exception {
         String jsonResponse = null;
         try {

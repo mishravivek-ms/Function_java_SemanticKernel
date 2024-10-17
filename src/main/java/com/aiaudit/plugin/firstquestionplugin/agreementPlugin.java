@@ -1,18 +1,8 @@
-package com.optum.plugin.firstquestionplugin;
+package com.aiaudit.plugin.firstquestionplugin;
 
-import com.azure.ai.formrecognizer.documentanalysis.DocumentAnalysisClient;
-import com.azure.ai.formrecognizer.documentanalysis.DocumentAnalysisClientBuilder;
-import com.azure.ai.formrecognizer.documentanalysis.models.AnalyzeResult;
-import com.azure.core.credential.AzureKeyCredential;
-import com.azure.core.util.BinaryData;
 import com.microsoft.semantickernel.semanticfunctions.annotations.DefineKernelFunction;
-import com.azure.ai.formrecognizer.documentanalysis.models.DocumentLine;
-import com.azure.ai.formrecognizer.documentanalysis.models.DocumentPage;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -75,14 +65,11 @@ public InputStream readDocumentAsync(String apiURL) throws Exception {
     return inputStream;
 }
 
-    /*public static byte[] convertInputStreamToByteArray(InputStream inputStream) throws Exception {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = inputStream.read(buffer)) != -1) {
-            byteArrayOutputStream.write(buffer, 0, length);
+    @DefineKernelFunction(name = "ReadAgreementfromLocal", description = "Gets full document")
+    public InputStream readlocalDocumentAsync(String path) throws Exception {
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(path);
+        return inputStream;
         }
-        return byteArrayOutputStream.toByteArray();
-    }*/
 
 }

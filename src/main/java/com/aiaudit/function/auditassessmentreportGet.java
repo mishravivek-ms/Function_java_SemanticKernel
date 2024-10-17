@@ -1,22 +1,23 @@
-package com.optum.function;
+package com.aiaudit.function;
 
+import com.aiaudit.DTO.response;
 import com.microsoft.azure.functions.*;
 import com.microsoft.azure.functions.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-public class nurseAuditassessmentreportGet {
-  @FunctionName("nurseAuditassessmentreportGet")
+public class auditassessmentreportGet {
+  @FunctionName("AuditassessmentreportGet")
   public HttpResponseMessage run(
           @HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.ANONYMOUS) 
           HttpRequestMessage<Optional<String>> request,
-          @CosmosDBInput(name = "database", 
-                         databaseName = "auditreport", 
-                         containerName = "Items", 
-                         sqlQuery = "SELECT * FROM c", 
-                         connection = "CosmosDBConnectionString") 
-          List<String> items,
+          @CosmosDBInput(name = "Items",
+                  databaseName = "auditreport",
+                  containerName  = "Items",
+                  sqlQuery = "SELECT * FROM c",
+                  connection  = "CosmosDBConnectionString")
+          List<response> items,
           final ExecutionContext context) {
 
       context.getLogger().info("Retrieved items from Cosmos DB.");

@@ -1,8 +1,8 @@
-package com.optum.DTO;
+package com.aiaudit.DTO;
 
 import java.io.InputStream;
 
-public class KernelRequest {
+public class kernelRequest {
     String MRN_number;
     String document_name;
 
@@ -17,9 +17,9 @@ public class KernelRequest {
     }
 
 
-    public KernelRequest() {
+    public kernelRequest() {
     }
-    public KernelRequest(String MRN_number, String document_name) {
+    public kernelRequest(String MRN_number, String document_name) {
         this.MRN_number = MRN_number;
         this.document_name = document_name;
     }

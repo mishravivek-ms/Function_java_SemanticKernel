@@ -1,6 +1,8 @@
-package com.optum.DTO;
+package com.aiaudit.DTO;
 
 public class response {
+
+    String id;
     answer firstQuestionReply;
     answer secondQuestionReply;
 
@@ -11,6 +13,15 @@ public class response {
         this.firstQuestionReply = firstQuestionReply;
         this.secondQuestionReply = secondQuestionReply;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public answer getFirstQuestionReply() {
         return firstQuestionReply;
     }

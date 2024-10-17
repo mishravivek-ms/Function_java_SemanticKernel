@@ -1,45 +1,27 @@
-package com.optum.questions;
+package com.aiaudit.questions;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
-import com.azure.ai.openai.OpenAIClientBuilder;
-import com.azure.core.credential.AzureKeyCredential;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
-import com.microsoft.semantickernel.contextvariables.converters.CollectionVariableContextVariableTypeConverter;
 import com.microsoft.semantickernel.orchestration.FunctionResult;
-import com.microsoft.semantickernel.orchestration.InvocationContext;
-import com.microsoft.semantickernel.orchestration.InvocationReturnMode;
-import com.microsoft.semantickernel.orchestration.ToolCallBehavior;
 import com.microsoft.semantickernel.plugin.KernelPlugin;
 import com.microsoft.semantickernel.plugin.KernelPluginFactory;
-import com.microsoft.semantickernel.semanticfunctions.HandlebarsPromptTemplateFactory;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunction;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunctionArguments;
-import com.microsoft.semantickernel.semanticfunctions.KernelFunctionYaml;
 import com.microsoft.semantickernel.services.chatcompletion.ChatCompletionService;
-import com.optum.DTO.agreementDTO;
-import com.optum.DTO.answer;
-import com.optum.plugin.firstquestionplugin.ConversationSummaryPlugin;
-import com.optum.plugin.firstquestionplugin.agreementPlugin;
-import com.optum.plugin.firstquestionplugin.documentReaderPlugin;
-import com.optum.plugin.secondquestionplugin.nurseRecordPlugin;
-import com.optum.util.kernelUtil;
+import com.aiaudit.DTO.answer;
+import com.aiaudit.plugin.secondquestionplugin.recordPlugin;
+import com.aiaudit.util.kernelUtil;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.stream.Collectors;
 
 public class secondQuestionImp {
 
     public static answer invokeOpenAI(Kernel kernel,OpenAIAsyncClient client) throws IOException {
 
-    KernelPlugin nurseRecordPlugin = KernelPluginFactory.createFromObject(new nurseRecordPlugin("http://localhost:57614/api/sendquestionAPI"),
-                "ReadNurseRecord");
+    KernelPlugin RecordPlugin = KernelPluginFactory.createFromObject(new recordPlugin("http://localhost:57397/api/sendquestionAPI"),
+                "ReadAuditRecord");
 
         ChatCompletionService chatCompletionService = OpenAIChatCompletion.builder()
                 .withModelId(System.getenv("openai_model"))
@@ -48,18 +30,18 @@ public class secondQuestionImp {
 
         kernel = Kernel.builder()
                 .withAIService(ChatCompletionService.class, chatCompletionService)
-                .withPlugin(nurseRecordPlugin)
+                .withPlugin(RecordPlugin)
                 .build();
 
 
         FunctionResult<String> apiresultValue = null;
         try {
             KernelFunctionArguments arguments = KernelFunctionArguments.builder()
-                    .withInput("http://localhost:57614/api/sendquestionAPI")
+                    .withInput("http://localhost:57397/api/sendquestionAPI")
                     .build();
 
             apiresultValue = kernel.invokeAsync(
-                            nurseRecordPlugin.<String>get("ReadNurseRecord"))
+                            RecordPlugin.<String>get("ReadAuditRecord"))
                     .withArguments(arguments)
                     .block();
         } catch (Exception e) {

@@ -1,12 +1,12 @@
-package com.optum.util;
+package com.aiaudit.util;
 import java.io.Serializable;
 
-public class InputStreamWrapper implements Serializable {
+public class inputStreamWrapper implements Serializable {
     private byte[] data;
 
-    public InputStreamWrapper() {
+    public inputStreamWrapper() {
     }
-    public InputStreamWrapper(byte[] data) {
+    public inputStreamWrapper(byte[] data) {
         this.data = data;
     }
 

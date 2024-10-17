@@ -1,4 +1,4 @@
-package com.optum.DTO;
+package com.aiaudit.DTO;
 
 public class answer implements java.io.Serializable {
     private String answerYorN;

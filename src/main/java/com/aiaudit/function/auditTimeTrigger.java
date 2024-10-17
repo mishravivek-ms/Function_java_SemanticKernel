@@ -1,42 +1,37 @@
-package com.optum.function;
+package com.aiaudit.function;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.microsoft.azure.functions.annotation.*;
-import com.optum.DTO.response;
-import com.optum.openai.KernelBuilder;
+import com.aiaudit.DTO.response;
+import com.aiaudit.openai.kernelBuilder;
 import com.microsoft.azure.functions.*;
-import com.optum.DTO.KernelRequest;
+import com.aiaudit.DTO.kernelRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 /**
  * Azure Functions with Timer trigger.
  */
-public class nurseAuditTimeTrigger {
+public class auditTimeTrigger {
     /**
      * This function will be invoked periodically according to the specified schedule.
      */
-    @FunctionName("nurseAuditTimeTrigger")
+    @FunctionName("AuditTimeTrigger")
     public void run(
-        @TimerTrigger(name = "timerInfo", schedule = "*/60 * * * * *") String timerInfo,
-        /*@CosmosDBOutput(name = "Items",
-              databaseName = "ToDoList",
+        @TimerTrigger(name = "timerInfo", schedule = "*/30 * * * * *") String timerInfo,
+        @CosmosDBOutput(name = "Items",
+              databaseName = "auditreport",
               containerName  = "Items",
               connection  = "CosmosDBConnectionString")
-            OutputBinding<String> outputItem,*/
+            OutputBinding<String> outputItem,
         final ExecutionContext context
     ) throws IOException {
         context.getLogger().info("Java Timer trigger function executed at: " + LocalDateTime.now());
 
-        /*String localRoot = System.getenv("AzureWebJobsScriptRoot");
-        String azureRoot = System.getenv("HOME") + "/site/wwwroot";
-        String functionAppRoot = localRoot != null ? localRoot : azureRoot;*/
-
-        KernelBuilder kernelBuilder = new KernelBuilder();
-        KernelRequest kernelrequest = new KernelRequest();
+        kernelBuilder kernelBuilder = new kernelBuilder();
+        kernelRequest kernelrequest = new kernelRequest();
         kernelrequest.setMRN_number("123456");
         kernelrequest.setDocument_name("sample.pdf");
 
@@ -44,7 +39,10 @@ public class nurseAuditTimeTrigger {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(SerializationFeature.INDENT_OUTPUT, false);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String dtoJson = objectMapper.writeValueAsString(result);
         context.getLogger().info("Response from AI: "+dtoJson);
+        outputItem.setValue(dtoJson);
+        context.getLogger().info("Record updated into Database for : "+result.getId());
     }
 }

@@ -1,26 +1,25 @@
-package com.optum.openai;
+package com.aiaudit.openai;
 
 import java.io.*;
+import java.util.Random;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
 import com.azure.core.credential.AzureKeyCredential;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
 import com.microsoft.semantickernel.services.chatcompletion.ChatCompletionService;
-import com.optum.DTO.KernelRequest;
-import com.optum.DTO.answer;
-import com.optum.DTO.response;
-import com.optum.questions.firstQuestionImp;
-import com.optum.questions.secondQuestionImp;
+import com.aiaudit.DTO.kernelRequest;
+import com.aiaudit.DTO.answer;
+import com.aiaudit.DTO.response;
+import com.aiaudit.questions.firstQuestionImp;
+import com.aiaudit.questions.secondQuestionImp;
 
-public class KernelBuilder {
+public class kernelBuilder {
 
 
-    public static response invokeOpenAI(KernelRequest kernelrequest) throws IOException {
+    public static response invokeOpenAI(kernelRequest kernelrequest) throws IOException {
         OpenAIAsyncClient client = new OpenAIClientBuilder()
                 .credential(new AzureKeyCredential(System.getenv("openai_key")))
                 .endpoint(System.getenv("openai_url"))
@@ -38,7 +37,7 @@ public class KernelBuilder {
         response.setSecondQuestionReply(secondQuestionImpReply);
 
 
-
+        response.setId(String.valueOf(new Random().nextInt(1000)));
         return response;
     }
 

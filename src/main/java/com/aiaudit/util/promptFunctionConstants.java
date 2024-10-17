@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
-package com.optum.util;
+package com.aiaudit.util;
 
-public class PromptFunctionConstants {
+public class promptFunctionConstants {
 
     public static final String SummarizeConversationDefinition = """
         BEGIN CONTENT TO SUMMARIZE:

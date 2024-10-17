@@ -1,4 +1,4 @@
-package com.optum.util;
+package com.aiaudit.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,7 +7,7 @@ import com.microsoft.semantickernel.orchestration.FunctionResult;
 import com.microsoft.semantickernel.semanticfunctions.HandlebarsPromptTemplateFactory;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunction;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunctionYaml;
-import com.optum.DTO.answer;
+import com.aiaudit.DTO.answer;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -25,7 +25,7 @@ public class kernelUtil {
             throw new RuntimeException(e);
         }
 
-        InputStreamWrapper inputStreamWrapper = new InputStreamWrapper(byteArrayOutputStream.toByteArray());
+        inputStreamWrapper inputStreamWrapper = new inputStreamWrapper(byteArrayOutputStream.toByteArray());
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
         try {
